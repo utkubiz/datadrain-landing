@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DataDrain — Network monitor for your Mac</title>
+<link rel="icon" type="image/png" href="icon.png">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap');
+
+  :root {
+    --bg:        #fffdf9;
+    --bg-alt:    #f8f6f1;
+    --bg-card:   #ffffff;
+    --border:    rgba(0,0,0,0.06);
+    --text:      #222222;
+    --text-dim:  #555555;
+    --text-mute: #999999;
+    --accent:    #0d9488;
+    --accent-dark: #0f766e;
+    --accent-lo: rgba(13,148,136,0.06);
+    --accent-md: rgba(13,148,136,0.14);
+    --shadow:    0 2px 12px rgba(0,0,0,0.04);
+    --shadow-md: 0 8px 30px rgba(0,0,0,0.06);
+    --shadow-lg: 0 16px 48px rgba(0,0,0,0.08);
+    --radius:    20px;
+    --radius-sm: 14px;
+    --radius-pill: 100px;
+    --font: 'DM Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --font-mono: 'SF Mono', 'JetBrains Mono', monospace;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+  body { font-family: var(--font); background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.6; font-size: 16px; }
+  ::selection { background: var(--accent); color: #fff; }
+  a { color: inherit; text-decoration: none; }
+
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .stagger > .reveal:nth-child(1) { transition-delay: 0s; }
+  .stagger > .reveal:nth-child(2) { transition-delay: 0.05s; }
+  .stagger > .reveal:nth-child(3) { transition-delay: 0.1s; }
+  .stagger > .reveal:nth-child(4) { transition-delay: 0.15s; }
+  .stagger > .reveal:nth-child(5) { transition-delay: 0.2s; }
+  .stagger > .reveal:nth-child(6) { transition-delay: 0.25s; }
+  .stagger > .reveal:nth-child(7) { transition-delay: 0.3s; }
+  .stagger > .reveal:nth-child(8) { transition-delay: 0.35s; }
+  .stagger > .reveal:nth-child(9) { transition-delay: 0.4s; }
+
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+  section { position: relative; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 14px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(255,253,249,0.8);
+    backdrop-filter: blur(20px) saturate(1.4);
+    -webkit-backdrop-filter: blur(20px) saturate(1.4);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; }
+  .nav-logo img { width: 34px; height: 34px; border-radius: 8px; }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { font-size: 15px; color: var(--text-dim); font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    font-size: 15px; font-weight: 600; padding: 10px 24px;
+    border-radius: var(--radius-pill); background: var(--text); color: var(--bg);
+    border: none; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .nav-cta:hover { transform: scale(1.03); box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center;
+    padding: 140px 32px 80px;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 20px; border-radius: var(--radius-pill);
+    background: var(--accent-lo); font-size: 14px;
+    font-weight: 600; color: var(--accent); margin-bottom: 32px;
+  }
+  .hero-badge .dot {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(0.7); }
+  }
+  .hero h1 {
+    font-size: clamp(42px, 6vw, 72px); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.1;
+    margin-bottom: 24px; max-width: 700px;
+  }
+  .hero p {
+    font-size: clamp(17px, 2vw, 20px); color: var(--text-dim);
+    max-width: 480px; line-height: 1.7; margin-bottom: 40px;
+  }
+  .hero-actions { display: flex; gap: 14px; margin-bottom: 60px; }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 15px 36px; border-radius: var(--radius-pill);
+    background: var(--accent); color: #fff;
+    font-size: 16px; font-weight: 700; border: none; cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-primary:hover { transform: scale(1.03); box-shadow: 0 8px 28px rgba(13,148,136,0.3); }
+
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 15px 36px; border-radius: var(--radius-pill);
+    background: var(--bg-card); color: var(--text);
+    font-size: 16px; font-weight: 600; border: 1.5px solid var(--border);
+    cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-secondary:hover { transform: scale(1.03); box-shadow: var(--shadow); }
+
+  .hero-screenshot { width: 100%; max-width: 340px; }
+  .screenshot-wide-wrap { width: 100%; }
+
+  .screenshot-img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    display: block;
+  }
+
+  /* ── METRICS ── */
+  .metrics {
+    padding: 52px 0; background: var(--bg-alt);
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  }
+  .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
+  .metric-item .num {
+    font-size: 36px; font-weight: 800; letter-spacing: -0.03em;
+    color: var(--accent); font-family: var(--font-mono);
+  }
+  .metric-item .label { font-size: 15px; color: var(--text-dim); margin-top: 4px; }
+
+  /* ── FEATURES ── */
+  .features { padding: 96px 0; }
+  .section-header { text-align: center; margin-bottom: 56px; }
+  .section-tag { font-size: 14px; font-weight: 700; color: var(--accent); margin-bottom: 12px; display: block; }
+  .section-header h2 { font-size: clamp(30px, 3.5vw, 42px); font-weight: 800; letter-spacing: -0.025em; line-height: 1.15; }
+  .section-header p { font-size: 18px; color: var(--text-dim); max-width: 440px; margin: 16px auto 0; line-height: 1.7; }
+  .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .feature-card {
+    padding: 32px 28px; border-radius: var(--radius);
+    background: var(--bg-card); border: 1.5px solid var(--border);
+    transition: box-shadow 0.3s, transform 0.25s;
+  }
+  .feature-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px) scale(1.01); }
+  .feature-icon {
+    width: 48px; height: 48px; border-radius: 14px;
+    background: var(--accent-lo); display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px; font-size: 22px; color: var(--accent);
+  }
+  .feature-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+  .feature-card p { font-size: 15px; color: var(--text-dim); line-height: 1.65; }
+
+  /* ── SPOTLIGHT ── */
+  .spotlight { padding: 96px 0; }
+  .spotlight-row {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 56px; align-items: center; margin-bottom: 80px;
+  }
+  .spotlight-row:last-child { margin-bottom: 0; }
+  .spotlight-row.reverse { direction: rtl; }
+  .spotlight-row.reverse > * { direction: ltr; }
+  .spotlight-text .section-tag { text-align: left; }
+  .spotlight-text h3 {
+    font-size: clamp(26px, 3vw, 34px); font-weight: 800;
+    letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 16px;
+  }
+  .spotlight-text p { font-size: 17px; color: var(--text-dim); line-height: 1.75; margin-bottom: 24px; }
+  .spotlight-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .spotlight-list li { display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--text-dim); }
+  .spotlight-list .check {
+    width: 24px; height: 24px; border-radius: 8px; background: var(--accent-lo);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--accent); font-size: 13px; font-weight: 700; flex-shrink: 0;
+  }
+
+  /* ── HOW IT WORKS ── */
+  .how-it-works {
+    padding: 96px 0; background: var(--bg-alt);
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  }
+  .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; position: relative; }
+  .steps-grid::before {
+    content: ''; position: absolute; top: 30px;
+    left: calc(16.66% + 14px); right: calc(16.66% + 14px);
+    height: 2px; background: var(--accent-md); border-radius: 1px;
+  }
+  .step { text-align: center; position: relative; }
+  .step-num {
+    width: 52px; height: 52px; border-radius: 50%; background: var(--accent);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 20px; font-weight: 800; color: #fff;
+    font-family: var(--font-mono); margin-bottom: 22px;
+    position: relative; z-index: 1;
+    box-shadow: 0 4px 16px rgba(13,148,136,0.25);
+  }
+  .step h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .step p { font-size: 15px; color: var(--text-dim); line-height: 1.7; max-width: 260px; margin: 0 auto; }
+
+  /* ── CTA ── */
+  .cta { padding: 96px 0; text-align: center; }
+  .cta h2 { font-size: clamp(32px, 4.5vw, 48px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.12; margin-bottom: 16px; }
+  .cta p { font-size: 18px; color: var(--text-dim); margin-bottom: 36px; }
+  .cta .btn-primary { font-size: 18px; padding: 17px 44px; }
+  .cta-note { font-size: 13px; color: var(--text-mute); margin-top: 16px; }
+
+  /* ── FOOTER ── */
+  footer { padding: 40px 0; border-top: 1px solid var(--border); }
+  .footer-inner { display: flex; align-items: center; justify-content: space-between; }
+  .footer-left { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--text-mute); }
+  .footer-left img { width: 26px; height: 26px; border-radius: 6px; }
+  .footer-links { display: flex; gap: 28px; list-style: none; }
+  .footer-links a { font-size: 14px; color: var(--text-mute); transition: color 0.2s; }
+  .footer-links a:hover { color: var(--text-dim); }
+
+  @media (max-width: 900px) {
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+    .spotlight-row, .spotlight-row.reverse { grid-template-columns: 1fr; gap: 36px; direction: ltr; }
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  }
+  @media (max-width: 640px) {
+    nav { padding: 12px 20px; }
+    .nav-links { display: none; }
+    .hero { padding: 120px 24px 56px; }
+    .hero-actions { flex-direction: column; width: 100%; max-width: 300px; }
+    .hero-actions .btn-primary, .hero-actions .btn-secondary { width: 100%; justify-content: center; }
+    .features-grid { grid-template-columns: 1fr; }
+    .steps-grid { grid-template-columns: 1fr; gap: 36px; }
+    .steps-grid::before { display: none; }
+    .metrics-grid { grid-template-columns: 1fr 1fr; }
+    .footer-inner { flex-direction: column; gap: 20px; }
+    .container { padding: 0 24px; }
+    .section-header { margin-bottom: 40px; }
+    .features, .spotlight, .how-it-works, .cta { padding: 72px 0; }
+    .spotlight-row { margin-bottom: 56px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <img src="icon.png" alt="DataDrain">
+    DataDrain
+  </div>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#details">Details</a></li>
+    <li><a href="#how-it-works">How It Works</a></li>
+  </ul>
+  <a href="#download" class="nav-cta">Download</a>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="hero-badge reveal"><span class="dot"></span> macOS Menu Bar App</div>
+  <h1 class="reveal">Know what's using<br>your internet</h1>
+  <p class="reveal">DataDrain lives in your menu bar and shows you which apps are using your network, how much, and where they're connecting to.</p>
+  <div class="hero-actions reveal">
+    <a href="#download" class="btn-primary>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 2v9M4 8l4 4 4-4"/><path d="M2 13h12"/></svg>
+      Download for Mac
+    </a>
+    <a href="#features" class="btn-secondary">Learn more</a>
+  </div>
+
+  <div class="hero-screenshot reveal">
+    <img src="img/home.png" alt="DataDrain — App list showing per-app bandwidth usage" class="screenshot-img">
+  </div>
+</section>
+
+<!-- ═══════════ METRICS ═══════════ -->
+<section class="metrics">
+  <div class="container">
+    <div class="metrics-grid stagger">
+      <div class="metric-item reveal"><div class="num">&lt;1%</div><div class="label">CPU usage</div></div>
+      <div class="metric-item reveal"><div class="num">2s</div><div class="label">Update interval</div></div>
+      <div class="metric-item reveal"><div class="num">&infin;</div><div class="label">Apps tracked</div></div>
+      <div class="metric-item reveal"><div class="num">0</div><div class="label">Dependencies</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FEATURES ═══════════ -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">Features</span>
+      <h2>What it does</h2>
+      <p>A quick look at what you get.</p>
+    </div>
+    <div class="features-grid stagger">
+      <div class="feature-card reveal"><div class="feature-icon">&#8597;</div><h3>Live speed display</h3><p>See real-time download and upload speeds right in your menu bar. Choose to show both, one, or just an icon.</p></div>
+      <div class="feature-card reveal"><div class="feature-icon">&#9638;</div><h3>Per-app breakdown</h3><p>Instantly see which apps consume your bandwidth. Sorted by usage so the heaviest hitters are always on top.</p></div>
+      <div class="feature-card reveal"><div class="feature-icon">&#8942;</div><h3>Per-host tracking</h3><p>Drill into each app to see exactly which remote servers it connects to, with download and upload bytes per host.</p></div>
+      <div class="feature-card reveal"><div class="feature-icon">&#9776;</div><h3>Process-level detail</h3><p>See individual processes within each app and their network footprint. Know exactly what's sending data.</p></div>
+      <div class="feature-card reveal"><div class="feature-icon">&#x25F4;</div><h3>Usage history</h3><p>Track your network usage over time — daily, weekly, and monthly summaries so you can spot trends.</p></div>
+      <div class="feature-card reveal"><div class="feature-icon">&#x2717;</div><h3>App management</h3><p>Force quit misbehaving apps directly from DataDrain. No need to open Activity Monitor.</p></div>
+      <div class="feature-card reveal"><div class="feature-icon">&#x25C9;</div><h3>Hidden apps</h3><p>Hide apps you don't want cluttering your view. They still get tracked, just out of sight.</p></div>
+      <div class="feature-card reveal"><div class="feature-icon">&#x21BB;</div><h3>Launch at login</h3><p>Set it once and forget it. DataDrain starts automatically every time you log in to your Mac.</p></div>
+      <div class="feature-card reveal"><div class="feature-icon">&#x2726;</div><h3>Lightweight &amp; native</h3><p>Built with SwiftUI. No Electron, no web views. Tiny memory footprint and buttery smooth performance.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SPOTLIGHT ═══════════ -->
+<section class="spotlight" id="details">
+  <div class="container">
+    <div class="spotlight-row">
+      <div class="spotlight-text reveal">
+        <span class="section-tag">Deep Visibility</span>
+        <h3>See where each app<br>connects to</h3>
+        <p>Pick any app and see the remote servers, data per connection, and the processes responsible.</p>
+        <ul class="spotlight-list">
+          <li><span class="check">&#x2713;</span> Per-connection download &amp; upload bytes</li>
+          <li><span class="check">&#x2713;</span> DNS resolution for readable hostnames</li>
+          <li><span class="check">&#x2713;</span> Process-level PID tracking</li>
+          <li><span class="check">&#x2713;</span> One-tap copy for any detail</li>
+        </ul>
+      </div>
+      <div class="reveal screenshot-wide-wrap">
+        <img src="img/app_detail.png" alt="DataDrain — App detail view with remote hosts and processes" class="screenshot-img">
+      </div>
+    </div>
+
+    <div class="spotlight-row reverse">
+      <div class="spotlight-text reveal">
+        <span class="section-tag">History &amp; Trends</span>
+        <h3>Usage history</h3>
+        <p>DataDrain keeps a rolling log of your daily, weekly, and monthly usage so you can look back anytime.</p>
+        <ul class="spotlight-list">
+          <li><span class="check">&#x2713;</span> Today, yesterday, this week, this month</li>
+          <li><span class="check">&#x2713;</span> Last 7 days breakdown</li>
+          <li><span class="check">&#x2713;</span> Download &amp; upload split</li>
+          <li><span class="check">&#x2713;</span> Clear history anytime</li>
+        </ul>
+      </div>
+      <div class="reveal screenshot-wide-wrap">
+        <img src="img/usage_history.png" alt="DataDrain — Usage history with daily, weekly, and monthly stats" class="screenshot-img">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ HOW IT WORKS ═══════════ -->
+<section class="how-it-works" id="how-it-works">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">How It Works</span>
+      <h2>Get started</h2>
+    </div>
+    <div class="steps-grid stagger">
+      <div class="step reveal"><div class="step-num">1</div><h3>Download</h3><p>Drag DataDrain to your Applications folder.</p></div>
+      <div class="step reveal"><div class="step-num">2</div><h3>Open</h3><p>It shows up in your menu bar. Tracking starts right away.</p></div>
+      <div class="step reveal"><div class="step-num">3</div><h3>That's it</h3><p>Click the menu bar icon to see what's going on. No account, no setup.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CTA ═══════════ -->
+<section class="cta" id="download">
+  <div class="container">
+    <h2 class="reveal">Download DataDrain</h2>
+    <p class="reveal">Free, lightweight, no account needed.</p>
+    <a href="#download" class="btn-primary reveal" style="display:inline-flex>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 2v9M4 8l4 4 4-4"/><path d="M2 13h12"/></svg>
+      Download for macOS
+    </a>
+    <div class="cta-note reveal">Requires macOS 14.0 or later</div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <img src="icon.png" alt="DataDrain">
+        <span>Made with care for your Mac &hearts;</span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      const id = link.getAttribute('href');
+      if (id === '#') return;
+      const target = document.querySelector(id);
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+</script>
+
+</body>
+</html>

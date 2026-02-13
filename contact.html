@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — DataDrain</title>
+<link rel="icon" type="image/png" href="icon.png">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap');
+
+  :root {
+    --bg:        #fffdf9;
+    --bg-alt:    #f8f6f1;
+    --bg-card:   #ffffff;
+    --border:    rgba(0,0,0,0.06);
+    --border-hi: rgba(13,148,136,0.2);
+    --text:      #222222;
+    --text-dim:  #555555;
+    --text-mute: #999999;
+    --accent:    #0d9488;
+    --accent-dark: #0f766e;
+    --accent-lo: rgba(13,148,136,0.06);
+    --shadow-md: 0 8px 30px rgba(0,0,0,0.06);
+    --radius:    20px;
+    --font: 'DM Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+  body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; font-size: 16px; }
+  ::selection { background: var(--accent); color: #fff; }
+  a { color: var(--accent-dark); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 14px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(255,253,249,0.8);
+    backdrop-filter: blur(20px) saturate(1.4);
+    -webkit-backdrop-filter: blur(20px) saturate(1.4);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 700; font-size: 18px;
+    color: var(--text); text-decoration: none;
+  }
+  .nav-logo .icon {
+    width: 34px; height: 34px; border-radius: 8px;
+  }
+  .nav-back {
+    font-size: 14px; color: var(--text-dim); text-decoration: none;
+    font-weight: 500; transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--text); text-decoration: none; }
+
+  .container { max-width: 680px; margin: 0 auto; padding: 0 32px; }
+
+  .page-header {
+    padding: 130px 0 40px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 40px;
+  }
+  .page-header h1 {
+    font-size: 36px; font-weight: 800; letter-spacing: -0.02em;
+  }
+  .page-header p {
+    font-size: 16px; color: var(--text-dim); margin-top: 10px; line-height: 1.7;
+  }
+
+  .content { padding-bottom: 96px; }
+
+  .contact-card {
+    display: block;
+    padding: 32px 28px;
+    border-radius: var(--radius);
+    background: var(--bg-card);
+    border: 1.5px solid var(--border);
+    transition: box-shadow 0.3s, transform 0.25s;
+    text-decoration: none;
+    margin-bottom: 40px;
+  }
+  .contact-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px) scale(1.01);
+    text-decoration: none;
+  }
+
+  .contact-card .card-icon {
+    width: 48px; height: 48px; border-radius: 14px;
+    background: var(--accent-lo);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  .contact-card h3 {
+    font-size: 17px; font-weight: 700;
+    margin-bottom: 6px; color: var(--text);
+  }
+
+  .contact-card p {
+    font-size: 15px; color: var(--text-dim); line-height: 1.65;
+  }
+
+  .contact-card .link-text {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 14px; font-weight: 600; color: var(--accent-dark);
+    margin-top: 14px;
+  }
+
+  .faq h2 {
+    font-size: 20px; font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .faq-item {
+    padding: 22px 26px;
+    border-radius: 14px;
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    margin-bottom: 10px;
+  }
+
+  .faq-item h3 {
+    font-size: 16px; font-weight: 600; margin-bottom: 6px;
+  }
+
+  .faq-item p {
+    font-size: 15px; color: var(--text-dim); line-height: 1.7;
+  }
+
+  footer {
+    padding: 40px 0;
+    border-top: 1px solid var(--border);
+  }
+  .footer-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    max-width: 680px; margin: 0 auto; padding: 0 32px;
+  }
+  .footer-left {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 14px; color: var(--text-mute);
+  }
+  .footer-left .icon {
+    width: 26px; height: 26px; border-radius: 6px;
+  }
+  .footer-links { display: flex; gap: 28px; list-style: none; }
+  .footer-links a { font-size: 14px; color: var(--text-mute); transition: color 0.2s; text-decoration: none; }
+  .footer-links a:hover { color: var(--text-dim); }
+
+  @media (max-width: 640px) {
+    nav { padding: 12px 20px; }
+    .container { padding: 0 24px; }
+    .page-header { padding: 110px 0 32px; }
+    .page-header h1 { font-size: 28px; }
+    .footer-inner { flex-direction: column; gap: 20px; padding: 0 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img class="icon" src="icon.png" alt="DataDrain">
+    DataDrain
+  </a>
+  <a href="index.html" class="nav-back">&larr; Back to Home</a>
+</nav>
+
+<div class="container">
+  <div class="page-header">
+    <h1>Contact</h1>
+    <p>Have a question, found a bug, or want to suggest a feature? Reach out below.</p>
+  </div>
+
+  <div class="content">
+    <a href="mailto:emreutku0@gmail.com" class="contact-card">
+      <div class="card-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--text-dim)"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
+      </div>
+      <h3>Email</h3>
+      <p>For anything — bug reports, feature requests, partnerships, or just saying hello.</p>
+      <span class="link-text">emreutku0@gmail.com</span>
+    </a>
+
+    <div class="faq">
+      <h2>Frequently Asked Questions</h2>
+
+      <div class="faq-item">
+        <h3>Does DataDrain work on Apple Silicon?</h3>
+        <p>Yes. DataDrain is a universal binary that runs natively on both Apple Silicon (M1/M2/M3/M4) and Intel Macs.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>What macOS version is required?</h3>
+        <p>DataDrain requires macOS 14.0 (Sonoma) or later.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Is DataDrain free?</h3>
+        <p>Yes, DataDrain is completely free with no ads, no subscriptions, and no in-app purchases.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Why does DataDrain need to run outside the sandbox?</h3>
+        <p>DataDrain uses system-level tools to read per-app network statistics. These tools require access that isn't available inside the macOS App Sandbox, which is why DataDrain is distributed directly rather than through the Mac App Store.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Does DataDrain slow down my Mac?</h3>
+        <p>No. DataDrain uses less than 1% CPU and minimal memory. It polls network stats every 2 seconds using efficient system APIs.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Can I see historical data?</h3>
+        <p>Yes. DataDrain tracks daily, weekly, and monthly download/upload totals. You can view summaries and clear history at any time.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <img class="icon" src="icon.png" alt="DataDrain">
+      <span>Made with care for your Mac &hearts;</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="privacy.html">Privacy</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+</footer>
+
+</body>
+</html>

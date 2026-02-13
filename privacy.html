@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — DataDrain</title>
+<link rel="icon" type="image/png" href="icon.png">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap');
+
+  :root {
+    --bg:        #fffdf9;
+    --bg-alt:    #f8f6f1;
+    --border:    rgba(0,0,0,0.06);
+    --border-hi: rgba(13,148,136,0.2);
+    --text:      #222222;
+    --text-dim:  #555555;
+    --text-mute: #999999;
+    --accent:    #0d9488;
+    --accent-dark: #0f766e;
+    --accent-lo: rgba(13,148,136,0.06);
+    --radius:    20px;
+    --radius-pill: 100px;
+    --font: 'DM Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+  body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; font-size: 16px; }
+  ::selection { background: var(--accent); color: #fff; }
+  a { color: var(--accent-dark); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 14px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(255,253,249,0.8);
+    backdrop-filter: blur(20px) saturate(1.4);
+    -webkit-backdrop-filter: blur(20px) saturate(1.4);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 700; font-size: 18px;
+    color: var(--text); text-decoration: none;
+  }
+  .nav-logo .icon {
+    width: 34px; height: 34px; border-radius: 8px;
+  }
+  .nav-back {
+    font-size: 14px; color: var(--text-dim); text-decoration: none;
+    font-weight: 500; transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--text); text-decoration: none; }
+
+  .container { max-width: 680px; margin: 0 auto; padding: 0 32px; }
+
+  .page-header {
+    padding: 130px 0 40px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 40px;
+  }
+  .page-header h1 {
+    font-size: 36px; font-weight: 800; letter-spacing: -0.02em;
+  }
+  .page-header p { font-size: 15px; color: var(--text-mute); margin-top: 10px; }
+
+  .content { padding-bottom: 96px; }
+
+  .content h2 {
+    font-size: 20px; font-weight: 700;
+    margin: 36px 0 10px;
+  }
+  .content h2:first-child { margin-top: 0; }
+
+  .content p {
+    font-size: 16px; color: var(--text-dim); line-height: 1.75;
+    margin-bottom: 14px;
+  }
+
+  .content ul { list-style: none; margin-bottom: 14px; }
+  .content ul li {
+    font-size: 16px; color: var(--text-dim); line-height: 1.75;
+    padding-left: 22px; position: relative;
+  }
+  .content ul li::before {
+    content: '';
+    position: absolute; left: 0; top: 12px;
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent); opacity: 0.5;
+  }
+
+  .highlight-box {
+    padding: 22px 26px;
+    border-radius: 14px;
+    background: var(--accent-lo);
+    border: 1px solid var(--border-hi);
+    margin: 20px 0;
+  }
+  .highlight-box p { color: var(--text); margin-bottom: 0; font-size: 16px; }
+
+  footer {
+    padding: 40px 0;
+    border-top: 1px solid var(--border);
+  }
+  .footer-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    max-width: 680px; margin: 0 auto; padding: 0 32px;
+  }
+  .footer-left {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 14px; color: var(--text-mute);
+  }
+  .footer-left .icon {
+    width: 26px; height: 26px; border-radius: 6px;
+  }
+  .footer-links { display: flex; gap: 28px; list-style: none; }
+  .footer-links a { font-size: 14px; color: var(--text-mute); transition: color 0.2s; text-decoration: none; }
+  .footer-links a:hover { color: var(--text-dim); }
+
+  @media (max-width: 640px) {
+    nav { padding: 12px 20px; }
+    .container { padding: 0 24px; }
+    .page-header { padding: 110px 0 32px; }
+    .page-header h1 { font-size: 28px; }
+    .footer-inner { flex-direction: column; gap: 20px; padding: 0 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img class="icon" src="icon.png" alt="DataDrain">
+    DataDrain
+  </a>
+  <a href="index.html" class="nav-back">&larr; Back to Home</a>
+</nav>
+
+<div class="container">
+  <div class="page-header">
+    <h1>Privacy Policy</h1>
+    <p>Last updated: February 2025</p>
+  </div>
+
+  <div class="content">
+    <div class="highlight-box">
+      <p><strong>TL;DR</strong> — DataDrain runs entirely on your Mac. It collects zero data, sends nothing to any server, and has no analytics. Your network activity stays on your device.</p>
+    </div>
+
+    <h2>No Data Collection</h2>
+    <p>DataDrain does not collect, transmit, or store any personal data on external servers. The app runs 100% locally on your Mac. There are no accounts, no sign-ups, no cloud syncing.</p>
+
+    <h2>What DataDrain Accesses</h2>
+    <p>To provide network monitoring, DataDrain reads real-time network statistics from your system using macOS built-in tools. This includes:</p>
+    <ul>
+      <li>Per-app network usage (bytes sent and received)</li>
+      <li>Active network connections and remote host addresses</li>
+      <li>Process identifiers (PIDs) for running applications</li>
+    </ul>
+    <p>This data is processed in memory and displayed in the app. Usage history is stored locally on your Mac in the app's container.</p>
+
+    <h2>Local Storage</h2>
+    <p>DataDrain stores the following data locally on your Mac:</p>
+    <ul>
+      <li>Network usage history (daily download/upload totals)</li>
+      <li>Your preferences (menu bar display mode, hidden apps, launch at login)</li>
+    </ul>
+    <p>This data never leaves your device. You can clear all stored history at any time from the Settings panel within the app.</p>
+
+    <h2>No Analytics or Tracking</h2>
+    <p>DataDrain contains no analytics frameworks, no crash reporters, no telemetry, and no tracking pixels. The app makes zero outbound network requests of its own.</p>
+
+    <h2>No Third-Party Services</h2>
+    <p>DataDrain has no third-party SDKs, libraries, or services embedded. It is built entirely with Apple's native frameworks (SwiftUI, AppKit, Foundation).</p>
+
+    <h2>DNS Resolution</h2>
+    <p>DataDrain uses your system's DNS resolver to convert IP addresses into readable hostnames (e.g., showing "apple.com" instead of "17.253.144.10"). This uses the same DNS infrastructure your Mac already uses — no additional DNS queries are made to external services.</p>
+
+    <h2>Updates</h2>
+    <p>If we ever change this policy, we will update this page with the new date. Since DataDrain collects no data, meaningful changes to this policy are unlikely.</p>
+
+    <h2>Contact</h2>
+    <p>If you have questions about this privacy policy, reach out via the <a href="contact.html">contact page</a>.</p>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <img class="icon" src="icon.png" alt="DataDrain">
+      <span>Made with care for your Mac &hearts;</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="privacy.html">Privacy</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+</footer>
+
+</body>
+</html>
