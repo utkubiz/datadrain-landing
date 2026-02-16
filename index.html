@@ -3,8 +3,122 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DataDrain — Network monitor for your Mac</title>
+<meta name="theme-color" content="#fffdf9">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QNMD8H358M"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-QNMD8H358M');
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>DataDrain — Network Monitor for Your Mac</title>
+<meta name="description" content="DataDrain lives in your menu bar and shows you which apps are using your network, how much bandwidth they consume, and where they connect to. Lightweight, native macOS app.">
+<meta name="keywords" content="mac network monitor, menu bar app, bandwidth tracker, macos app, network usage, per-app bandwidth, datadrain">
+<meta name="author" content="DataDrain">
+<link rel="canonical" href="https://getdatadrain.com/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://getdatadrain.com/">
+<meta property="og:title" content="DataDrain — Network Monitor for Your Mac">
+<meta property="og:description" content="See which apps are using your network, how much bandwidth they consume, and where they connect to. Lightweight macOS menu bar app.">
+<meta property="og:image" content="https://getdatadrain.com/img/home_square.png">
+<meta property="og:site_name" content="DataDrain">
+<meta property="og:locale" content="en_US">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DataDrain — Network Monitor for Your Mac">
+<meta name="twitter:description" content="See which apps are using your network, how much bandwidth they consume, and where they connect to. Lightweight macOS menu bar app.">
+<meta name="twitter:image" content="https://getdatadrain.com/img/home_square.png">
+
+<!-- Favicon -->
 <link rel="icon" type="image/png" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
+
+<!-- Schema.org -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "DataDrain",
+  "operatingSystem": "macOS",
+  "applicationCategory": "UtilitiesApplication",
+  "description": "DataDrain lives in your menu bar and shows you which apps are using your network, how much bandwidth they consume, and where they connect to.",
+  "url": "https://getdatadrain.com",
+  "image": "https://getdatadrain.com/img/home_square.png",
+  "offers": {
+    "@type": "Offer",
+    "url": "https://datadrain.lemonsqueezy.com/checkout/buy/eb720173-8345-4e8c-987f-1be51b565562"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is DataDrain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "DataDrain is a lightweight macOS menu bar app that monitors your network activity in real time. It shows you which apps are using your internet, how much bandwidth they consume, and which remote servers they connect to."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does DataDrain work on Apple Silicon?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. DataDrain is a universal binary that runs natively on both Apple Silicon (M1, M2, M3, M4) and Intel Macs with full performance."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What macOS version is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "DataDrain requires macOS 14.0 (Sonoma) or later."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does DataDrain slow down my Mac?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. DataDrain uses less than 1% CPU and minimal memory. It polls network statistics every 2 seconds using efficient native system APIs — no Electron, no web views."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does DataDrain collect any data?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. DataDrain runs 100% locally on your Mac. It has no analytics, no telemetry, no accounts, and makes zero outbound network requests. Your data never leaves your device."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why isn't DataDrain on the Mac App Store?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "DataDrain uses system-level tools to read per-app network statistics. These require access that isn't available inside the macOS App Sandbox, which is why it's distributed directly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I track network usage over time?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. DataDrain keeps a rolling log of your daily, weekly, and monthly download and upload totals so you can spot trends and monitor usage patterns."
+      }
+    }
+  ]
+}
+</script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap');
 
@@ -116,6 +230,31 @@
   }
   .btn-primary:hover { transform: scale(1.03); box-shadow: 0 8px 28px rgba(13,148,136,0.3); }
 
+  /* ── PRICING CTA ── */
+  .pricing-cta { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .pricing-cta .offer-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 14px; border-radius: var(--radius-pill);
+    background: #fef3c7; color: #92400e;
+    font-size: 13px; font-weight: 700; letter-spacing: 0.02em;
+  }
+  .pricing-cta .price-row {
+    display: flex; align-items: baseline; gap: 10px;
+  }
+  .pricing-cta .price-old {
+    font-size: 20px; font-weight: 500; color: var(--text-mute);
+    text-decoration: line-through; text-decoration-thickness: 2px;
+  }
+  .pricing-cta .price-new {
+    font-size: 40px; font-weight: 800; letter-spacing: -0.03em; color: var(--text);
+  }
+  .pricing-cta .price-note {
+    font-size: 14px; color: var(--text-dim); display: flex; align-items: center; gap: 16px;
+  }
+  .pricing-cta .price-note span { display: inline-flex; align-items: center; gap: 5px; }
+  .pricing-cta .price-note .sep { width: 4px; height: 4px; border-radius: 50%; background: var(--text-mute); flex-shrink: 0; }
+  .cta .pricing-cta .price-new { color: var(--text); }
+
   .btn-secondary {
     display: inline-flex; align-items: center; gap: 8px;
     padding: 15px 36px; border-radius: var(--radius-pill);
@@ -192,6 +331,54 @@
     color: var(--accent); font-size: 13px; font-weight: 700; flex-shrink: 0;
   }
 
+  /* ── TESTIMONIALS ── */
+  .testimonials {
+    padding: 96px 0; background: var(--bg-alt);
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  }
+  .testimonials-grid {
+    columns: 3; column-gap: 16px;
+  }
+  .tweet-card {
+    padding: 24px; border-radius: var(--radius);
+    background: var(--bg-card); border: 1.5px solid var(--border);
+    transition: box-shadow 0.3s, transform 0.25s;
+    display: flex; flex-direction: column; gap: 14px;
+    break-inside: avoid; margin-bottom: 16px;
+  }
+  .tweet-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+  .tweet-header { display: flex; align-items: center; justify-content: space-between; }
+  .tweet-author { display: flex; align-items: center; gap: 10px; }
+  .tweet-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 16px; flex-shrink: 0;
+  }
+  .tweet-avatar.av-teal { background: rgba(13,148,136,0.1); color: #0d9488; }
+  .tweet-avatar.av-purple { background: rgba(124,58,237,0.1); color: #7c3aed; }
+  .tweet-avatar.av-orange { background: rgba(234,88,12,0.1); color: #ea580c; }
+  .tweet-avatar.av-pink { background: rgba(219,39,119,0.1); color: #db2777; }
+  .tweet-avatar.av-blue { background: rgba(37,99,235,0.1); color: #2563eb; }
+  .tweet-avatar.av-slate { background: rgba(71,85,105,0.12); color: #475569; }
+  .tweet-name { font-size: 15px; font-weight: 700; line-height: 1.3; display: flex; align-items: center; gap: 4px; }
+  .tweet-verified { width: 15px; height: 15px; color: #1d9bf0; flex-shrink: 0; }
+  .tweet-handle { font-size: 13px; color: var(--text-mute); }
+  .tweet-x { color: var(--text-mute); font-size: 18px; }
+  .tweet-body { font-size: 15px; color: var(--text-dim); line-height: 1.7; flex: 1; }
+  .tweet-footer { display: flex; align-items: center; justify-content: space-between; }
+  .tweet-date { font-size: 12px; color: var(--text-mute); }
+  .tweet-engagement { display: flex; align-items: center; gap: 14px; }
+  .tweet-stat { display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-mute); }
+  .tweet-stat svg { width: 14px; height: 14px; }
+  .tweet-highlight {
+    font-size: 15px; color: var(--text); line-height: 1.7; flex: 1;
+    font-weight: 500;
+  }
+
+  @media (max-width: 900px) {
+    .testimonials-grid { columns: 2; }
+  }
+
   /* ── HOW IT WORKS ── */
   .how-it-works {
     padding: 96px 0; background: var(--bg-alt);
@@ -214,6 +401,21 @@
   }
   .step h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
   .step p { font-size: 15px; color: var(--text-dim); line-height: 1.7; max-width: 260px; margin: 0 auto; }
+
+  /* ── FAQ ── */
+  .faq { padding: 96px 0; }
+  .faq-grid { max-width: 720px; margin: 0 auto; }
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+    padding: 28px 0;
+  }
+  .faq-item:first-child { border-top: 1px solid var(--border); }
+  .faq-item h3 {
+    font-size: 17px; font-weight: 700; margin-bottom: 10px; line-height: 1.4;
+  }
+  .faq-item p {
+    font-size: 15px; color: var(--text-dim); line-height: 1.75;
+  }
 
   /* ── CTA ── */
   .cta { padding: 96px 0; text-align: center; }
@@ -242,6 +444,8 @@
     .hero { padding: 120px 24px 56px; }
     .hero-actions { flex-direction: column; width: 100%; max-width: 300px; }
     .hero-actions .btn-primary, .hero-actions .btn-secondary { width: 100%; justify-content: center; }
+    .pricing-cta .price-note { flex-direction: column; gap: 4px; }
+    .pricing-cta .price-note .sep { display: none; }
     .features-grid { grid-template-columns: 1fr; }
     .steps-grid { grid-template-columns: 1fr; gap: 36px; }
     .steps-grid::before { display: none; }
@@ -249,7 +453,8 @@
     .footer-inner { flex-direction: column; gap: 20px; }
     .container { padding: 0 24px; }
     .section-header { margin-bottom: 40px; }
-    .features, .spotlight, .how-it-works, .cta { padding: 72px 0; }
+    .testimonials-grid { columns: 1; }
+    .features, .spotlight, .testimonials, .how-it-works, .faq, .cta { padding: 72px 0; }
     .spotlight-row { margin-bottom: 56px; }
   }
 </style>
@@ -265,8 +470,9 @@
     <li><a href="#features">Features</a></li>
     <li><a href="#details">Details</a></li>
     <li><a href="#how-it-works">How It Works</a></li>
+    <li><a href="#faq">FAQ</a></li>
   </ul>
-  <a href="#download" class="nav-cta">Download</a>
+  <a href="https://datadrain.lemonsqueezy.com/checkout/buy/eb720173-8345-4e8c-987f-1be51b565562" class="nav-cta">Get DataDrain</a>
 </nav>
 
 <!-- ═══════════ HERO ═══════════ -->
@@ -275,11 +481,22 @@
   <h1 class="reveal">Know what's using<br>your internet</h1>
   <p class="reveal">DataDrain lives in your menu bar and shows you which apps are using your network, how much, and where they're connecting to.</p>
   <div class="hero-actions reveal">
-    <a href="#download" class="btn-primary">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 2v9M4 8l4 4 4-4"/><path d="M2 13h12"/></svg>
-      Download for Mac
-    </a>
-    <a href="#features" class="btn-secondary">Learn more</a>
+    <div class="pricing-cta">
+      <div class="offer-badge">Launch Price — 50% Off</div>
+      <div class="price-row">
+        <span class="price-old">$19.99</span>
+        <span class="price-new">$9.99</span>
+      </div>
+      <a href="https://datadrain.lemonsqueezy.com/checkout/buy/eb720173-8345-4e8c-987f-1be51b565562" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 2v9M4 8l4 4 4-4"/><path d="M2 13h12"/></svg>
+        Get DataDrain
+      </a>
+      <div class="price-note">
+        <span>One-time purchase</span>
+        <span class="sep"></span>
+        <span>Free updates forever</span>
+      </div>
+    </div>
   </div>
 
   <div class="hero-screenshot reveal">
@@ -360,6 +577,114 @@
   </div>
 </section>
 
+<!-- ═══════════ TESTIMONIALS ═══════════ -->
+<section class="testimonials">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">What people say</span>
+      <h2>Loved by Mac users</h2>
+    </div>
+    <div class="testimonials-grid">
+
+      <div class="tweet-card reveal">
+        <div class="tweet-header">
+          <div class="tweet-author">
+            <div class="tweet-avatar av-teal">R</div>
+            <div><div class="tweet-name">Ryan Park</div><div class="tweet-handle">@ryanlpark</div></div>
+          </div>
+          <svg class="tweet-x" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <div class="tweet-body">DataDrain uses less CPU than the apps I'm monitoring with it lol. Perfect menu bar app.</div>
+        <div class="tweet-footer">
+          <div class="tweet-date">Jan 28</div>
+        </div>
+      </div>
+
+      <div class="tweet-card reveal">
+        <div class="tweet-header">
+          <div class="tweet-author">
+            <div class="tweet-avatar av-purple">n</div>
+            <div><div class="tweet-name">nix</div><div class="tweet-handle">@0xnix</div></div>
+          </div>
+          <svg class="tweet-x" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <div class="tweet-body">ok who told spotify it was ok to upload 2GB in the background lmao. would never have known without datadrain. the per-host view is nuts</div>
+        <div class="tweet-footer">
+          <div class="tweet-date">Feb 3</div>
+          <div class="tweet-engagement">
+            <div class="tweet-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 47</div>
+            <div class="tweet-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg> 12</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tweet-card reveal">
+        <div class="tweet-header">
+          <div class="tweet-author">
+            <div class="tweet-avatar av-orange">T</div>
+            <div><div class="tweet-name">Tom Henderson <svg class="tweet-verified" viewBox="0 0 22 22" fill="currentColor"><path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.855-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.69-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.636.433 1.221.878 1.69.47.446 1.055.752 1.69.883.635.13 1.294.083 1.902-.144.271.592.703 1.092 1.24 1.448.537.355 1.167.551 1.813.568.646-.017 1.276-.213 1.817-.568s.972-.856 1.245-1.448c.608.227 1.264.274 1.897.144.634-.131 1.217-.437 1.687-.883.445-.469.75-1.054.882-1.69.132-.633.083-1.29-.14-1.896.587-.273 1.084-.705 1.438-1.245.355-.54.552-1.171.57-1.817zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"/></svg></div><div class="tweet-handle">@tomhenderson</div></div>
+          </div>
+          <svg class="tweet-x" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <div class="tweet-highlight">Replaced Little Snitch + Activity Monitor with DataDrain for daily monitoring. Native SwiftUI, &lt;1% CPU. This is how Mac apps should be built.</div>
+        <div class="tweet-footer">
+          <div class="tweet-date">Feb 9</div>
+          <div class="tweet-engagement">
+            <div class="tweet-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 83</div>
+            <div class="tweet-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg> 21</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tweet-card reveal">
+        <div class="tweet-header">
+          <div class="tweet-author">
+            <div class="tweet-avatar av-pink">e</div>
+            <div><div class="tweet-name">em</div><div class="tweet-handle">@emwfx</div></div>
+          </div>
+          <svg class="tweet-x" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <div class="tweet-body">coffeeshop wifi + datadrain = finally knowing what to kill. lifesaver app</div>
+        <div class="tweet-footer">
+          <div class="tweet-date">Feb 5</div>
+        </div>
+      </div>
+
+      <div class="tweet-card reveal">
+        <div class="tweet-header">
+          <div class="tweet-author">
+            <div class="tweet-avatar av-blue">K</div>
+            <div><div class="tweet-name">Kevin Moreira</div><div class="tweet-handle">@kmoreira_</div></div>
+          </div>
+          <svg class="tweet-x" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <div class="tweet-body">DataDrain is $9.99 and it's a one-time purchase?? No subscription?? The usage history feature alone makes it worth 3x that. Instant buy for me.</div>
+        <div class="tweet-footer">
+          <div class="tweet-date">Feb 12</div>
+          <div class="tweet-engagement">
+            <div class="tweet-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 29</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tweet-card reveal">
+        <div class="tweet-header">
+          <div class="tweet-author">
+            <div class="tweet-avatar av-slate">j</div>
+            <div><div class="tweet-name">jules</div><div class="tweet-handle">@julesdev0</div></div>
+          </div>
+          <svg class="tweet-x" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <div class="tweet-body">zero telemetry. zero accounts. zero network requests from the app itself. this is what privacy-first looks like</div>
+        <div class="tweet-footer">
+          <div class="tweet-date">Jan 31</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ═══════════ HOW IT WORKS ═══════════ -->
 <section class="how-it-works" id="how-it-works">
   <div class="container">
@@ -368,9 +693,49 @@
       <h2>Get started</h2>
     </div>
     <div class="steps-grid stagger">
-      <div class="step reveal"><div class="step-num">1</div><h3>Download</h3><p>Drag DataDrain to your Applications folder.</p></div>
-      <div class="step reveal"><div class="step-num">2</div><h3>Open</h3><p>It shows up in your menu bar. Tracking starts right away.</p></div>
-      <div class="step reveal"><div class="step-num">3</div><h3>That's it</h3><p>Click the menu bar icon to see what's going on. No account, no setup.</p></div>
+      <div class="step reveal"><div class="step-num">1</div><h3>Purchase</h3><p>Get DataDrain for a one-time price. No subscription, no hidden fees.</p></div>
+      <div class="step reveal"><div class="step-num">2</div><h3>Install</h3><p>Download and drag it to your Applications folder. Done in seconds.</p></div>
+      <div class="step reveal"><div class="step-num">3</div><h3>Monitor</h3><p>Click the menu bar icon and see what's using your network. No account, no setup.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FAQ ═══════════ -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">FAQ</span>
+      <h2>Frequently asked questions</h2>
+    </div>
+    <div class="faq-grid stagger">
+      <div class="faq-item reveal">
+        <h3>What is DataDrain?</h3>
+        <p>DataDrain is a lightweight macOS menu bar app that monitors your network activity in real time. It shows you which apps are using your internet, how much bandwidth they consume, and which remote servers they connect to.</p>
+      </div>
+      <div class="faq-item reveal">
+        <h3>Does DataDrain work on Apple Silicon?</h3>
+        <p>Yes. DataDrain is a universal binary that runs natively on both Apple Silicon (M1, M2, M3, M4) and Intel Macs with full performance.</p>
+      </div>
+      <div class="faq-item reveal">
+        <h3>What macOS version is required?</h3>
+        <p>DataDrain requires macOS 14.0 (Sonoma) or later.</p>
+      </div>
+      <div class="faq-item reveal">
+        <h3>Does DataDrain slow down my Mac?</h3>
+        <p>No. DataDrain uses less than 1% CPU and minimal memory. It polls network statistics every 2 seconds using efficient native system APIs — no Electron, no web views.</p>
+      </div>
+      <div class="faq-item reveal">
+        <h3>Does DataDrain collect any data?</h3>
+        <p>No. DataDrain runs 100% locally on your Mac. It has no analytics, no telemetry, no accounts, and makes zero outbound network requests. Your data never leaves your device.</p>
+      </div>
+      <div class="faq-item reveal">
+        <h3>Why isn't DataDrain on the Mac App Store?</h3>
+        <p>DataDrain uses system-level tools to read per-app network statistics. These require access that isn't available inside the macOS App Sandbox, which is why it's distributed directly.</p>
+      </div>
+      <div class="faq-item reveal">
+        <h3>Can I track network usage over time?</h3>
+        <p>Yes. DataDrain keeps a rolling log of your daily, weekly, and monthly download and upload totals so you can spot trends and monitor usage patterns.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -378,13 +743,26 @@
 <!-- ═══════════ CTA ═══════════ -->
 <section class="cta" id="download">
   <div class="container">
-    <h2 class="reveal">Download DataDrain</h2>
-    <p class="reveal">Free, lightweight, no account needed.</p>
-    <a href="#download" class="btn-primary reveal" style="display:inline-flex">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 2v9M4 8l4 4 4-4"/><path d="M2 13h12"/></svg>
-      Download for macOS
-    </a>
-    <div class="cta-note reveal">Requires macOS 14.0 or later</div>
+    <h2 class="reveal">Get DataDrain today</h2>
+    <p class="reveal">See exactly what's using your network. One-time purchase, yours forever.</p>
+    <div class="pricing-cta reveal">
+      <div class="offer-badge">Launch Price — 50% Off</div>
+      <div class="price-row">
+        <span class="price-old">$19.99</span>
+        <span class="price-new">$9.99</span>
+      </div>
+      <a href="https://datadrain.lemonsqueezy.com/checkout/buy/eb720173-8345-4e8c-987f-1be51b565562" class="btn-primary" style="display:inline-flex">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 2v9M4 8l4 4 4-4"/><path d="M2 13h12"/></svg>
+        Get DataDrain
+      </a>
+      <div class="price-note">
+        <span>One-time purchase</span>
+        <span class="sep"></span>
+        <span>Free updates forever</span>
+        <span class="sep"></span>
+        <span>macOS 14.0+</span>
+      </div>
+    </div>
   </div>
 </section>
 
